@@ -1,0 +1,21 @@
+{
+  "name": "lachouettecoop-api",
+  "version": "1.0.0",
+  "description": "API unifiée des données de La Chouette Coop",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "AGPL",
+  "dependencies": {
+    "apollo-server": "^2.7.0",
+    "graphql": "^14.4.2",
+    "graphql-tools": "^4.0.5",
+    "lodash": "^4.17.14",
+    "nodemon": "^1.19.1"
+  }
+}
