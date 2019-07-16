@@ -1,6 +1,8 @@
+require("dotenv").config();
 const { ApolloServer, gql } = require("apollo-server");
 const { makeExecutableSchema } = require("graphql-tools");
 const merge = require("lodash/merge");
+const { decode } = require("./Authentification/jwtUserToken");
 
 const Authentification = require("./Authentification");
 const App = {
@@ -14,6 +16,13 @@ const App = {
       "Permet de s'assurer du bon fonctionnement du serveur"
       ping: String
     }
+
+    "Réponse recommandée pour une mutation"
+    interface MutationResponse {
+      success: Boolean!
+      code: String
+      message: String
+    }
   `,
   resolvers: {
     Query: {
@@ -21,6 +30,9 @@ const App = {
     },
     Mutation: {
       ping: () => "pong"
+    },
+    MutationResponse: {
+      __resolveType: () => null // see https://github.com/apollographql/apollo-server/issues/1075#issuecomment-427476421
     }
   }
 };
@@ -29,7 +41,17 @@ const schema = makeExecutableSchema({
   typeDefs: [App.typeDefs, Authentification.typeDefs],
   resolvers: merge(App.resolvers, Authentification.resolvers)
 });
-const server = new ApolloServer({ schema });
+const server = new ApolloServer({
+  schema,
+  context: ({ req }) => {
+    const token = req.headers.authorization || "";
+    const user = token ? decode(token).data : null;
+
+    return {
+      user
+    };
+  }
+});
 
 server.listen().then(({ url }) => {
   console.log(`-> Serveur démarré : ${url}`);
