@@ -4,7 +4,9 @@ const { makeExecutableSchema } = require("graphql-tools");
 const merge = require("lodash/merge");
 const { decode } = require("./Authentification/jwtUserToken");
 
+const Annuaire = require("./Annuaire");
 const Authentification = require("./Authentification");
+
 const App = {
   typeDefs: gql`
     type Query {
@@ -38,9 +40,14 @@ const App = {
 };
 
 const schema = makeExecutableSchema({
-  typeDefs: [App.typeDefs, Authentification.typeDefs],
-  resolvers: merge(App.resolvers, Authentification.resolvers)
+  typeDefs: [App.typeDefs, Annuaire.typeDefs, Authentification.typeDefs],
+  resolvers: merge(
+    App.resolvers,
+    Annuaire.resolvers,
+    Authentification.resolvers
+  )
 });
+
 const server = new ApolloServer({
   schema,
   context: ({ req }) => {
@@ -50,7 +57,8 @@ const server = new ApolloServer({
     return {
       user
     };
-  }
+  },
+  dataSources: () => merge(Annuaire.dataSources())
 });
 
 server.listen().then(({ url }) => {

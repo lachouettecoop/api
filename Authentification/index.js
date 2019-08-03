@@ -3,7 +3,7 @@ const authenticate = require("./authenticate");
 const jwtUserToken = require("./jwtUserToken");
 
 const typeDefs = gql`
-  type Chouettos {
+  type User {
     lastname: String
     firstname: String
     displayName: String
@@ -21,12 +21,12 @@ const typeDefs = gql`
     message: String
 
     token: String
-    chouettos: Chouettos
+    chouettos: User
   }
 
   extend type Query {
     "L'utilisateur actuellement connecté"
-    me: Chouettos
+    me: User
   }
 
   extend type Mutation {
