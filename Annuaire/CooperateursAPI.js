@@ -1,5 +1,11 @@
+const mem = require("mem");
 const got = require("got");
 const csv = require("neat-csv");
+
+const UNE_HEURE = 60 * 60 * 1000;
+const memoizedGot = mem(got, {
+  maxAge: UNE_HEURE
+});
 
 const parseCSV = response => {
   return csv(response.body, {
@@ -29,7 +35,7 @@ class CooperateursAPI {
   }
 
   async getAll() {
-    return got(this.url)
+    return memoizedGot(this.url)
       .then(parseCSV)
       .then(formatMembres);
   }

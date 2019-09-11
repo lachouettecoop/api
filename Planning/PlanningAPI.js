@@ -1,9 +1,15 @@
+const mem = require("mem");
 const got = require("got");
 const csv = require("neat-csv");
 const isSameDay = require("date-fns/isSameDay");
 const isWithinInterval = require("date-fns/isWithinInterval");
 const eachDayOfInterval = require("date-fns/eachDayOfInterval");
 const toPlanning = require("./toPlanning");
+
+const UNE_MINUTE = 60 * 1000;
+const memoizedGot = mem(got, {
+  maxAge: UNE_MINUTE
+});
 
 const parseCSV = response => {
   return csv(response.body, {
@@ -17,7 +23,7 @@ class PlanningAPI {
   }
 
   async getAll() {
-    return got(this.url)
+    return memoizedGot(this.url)
       .then(parseCSV)
       .then(toPlanning);
   }
