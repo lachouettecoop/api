@@ -6,21 +6,26 @@
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
   "license": "AGPL",
   "dependencies": {
     "apollo-server": "^2.7.0",
+    "date-fns": "^2.1.0",
     "dotenv": "^8.0.0",
     "got": "^9.6.0",
     "graphql": "^14.4.2",
+    "graphql-iso-date": "^3.6.1",
     "graphql-tools": "^4.0.5",
     "jsonwebtoken": "^8.5.1",
     "ldapauth-fork": "^4.2.0",
     "lodash": "^4.17.14",
     "neat-csv": "^5.1.0",
     "nodemon": "^1.19.1"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0"
   }
 }

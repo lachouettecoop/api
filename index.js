@@ -6,6 +6,7 @@ const { decode } = require("./Authentification/jwtUserToken");
 
 const Annuaire = require("./Annuaire");
 const Authentification = require("./Authentification");
+const Planning = require("./Planning");
 
 const App = {
   typeDefs: gql`
@@ -40,11 +41,17 @@ const App = {
 };
 
 const schema = makeExecutableSchema({
-  typeDefs: [App.typeDefs, Annuaire.typeDefs, Authentification.typeDefs],
+  typeDefs: [
+    App.typeDefs,
+    Annuaire.typeDefs,
+    Authentification.typeDefs,
+    Planning.typeDefs
+  ],
   resolvers: merge(
     App.resolvers,
     Annuaire.resolvers,
-    Authentification.resolvers
+    Authentification.resolvers,
+    Planning.resolvers
   )
 });
 
@@ -58,7 +65,7 @@ const server = new ApolloServer({
       user
     };
   },
-  dataSources: () => merge(Annuaire.dataSources())
+  dataSources: () => merge(Annuaire.dataSources(), Planning.dataSources())
 });
 
 server.listen().then(({ url }) => {
