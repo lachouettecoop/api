@@ -1,8 +1,11 @@
 require("dotenv").config();
 const { ApolloServer, gql } = require("apollo-server");
 const { makeExecutableSchema } = require("graphql-tools");
+const { applyMiddleware } = require("graphql-middleware");
 const merge = require("lodash/merge");
+
 const { decode } = require("./Authentification/jwtUserToken");
+const Permissions = require("./Permissions");
 
 const Annuaire = require("./Annuaire");
 const Authentification = require("./Authentification");
@@ -56,7 +59,7 @@ const schema = makeExecutableSchema({
 });
 
 const server = new ApolloServer({
-  schema,
+  schema: applyMiddleware(schema, Permissions.middleware),
   context: ({ req }) => {
     const token = req.headers.authorization || "";
     const user = token ? decode(token).data : null;

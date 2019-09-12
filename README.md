@@ -17,6 +17,8 @@ suivantes :
 - Annuaire des coopérateurs et coopératrices de la SAS
 - Planning du Lab
 
+Les données accessibles dépendent des permissions de la personne connectée.
+
 ## Documentation
 
 Pas encore `¯\_(ツ)_/¯`

@@ -21,7 +21,6 @@ const typeDefs = gql`
     message: String
 
     token: String
-    chouettos: User
   }
 
   extend type Query {
@@ -43,12 +42,10 @@ const resolvers = {
       try {
         const user = await authenticate(email, password);
         const token = jwtUserToken.createFromData(user);
-        const chouettos = jwtUserToken.decode(token).data;
 
         return {
           success: true,
-          token,
-          chouettos
+          token
         };
       } catch (err) {
         const code = err.message
