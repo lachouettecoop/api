@@ -71,6 +71,11 @@ const server = new ApolloServer({
   dataSources: () => merge(Annuaire.dataSources(), Planning.dataSources())
 });
 
-server.listen().then(({ url }) => {
-  console.log(`-> Serveur démarré : ${url}`);
-});
+server
+  .listen({
+    port: process.env.API_PORT || 4000,
+    host: process.env.API_HOST || "0.0.0.0"
+  })
+  .then(({ url }) => {
+    console.log(`-> Serveur démarré : ${url}`);
+  });
