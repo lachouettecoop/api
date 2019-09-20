@@ -61,4 +61,54 @@ entièrement automatisée, si vous osez !
 
 ## Déploiement
 
-Pas encore `¯\_(ツ)_/¯`
+Une image Docker (`real34/lachouettecoop-api`) est construite à chaque nouveau
+changement ou nouvelle version.
+
+La branche `master` est disponible via le tag `latest`, et les tags (versions)
+via leurs tags respectifs.
+
+Il est donc possible de lancer l'application en mode production grâce à Docker.
+Le port `4000` est exposé, et il faut rendre disponible les variables d'environnement
+contenant les secrets / configurations dans le conteneur (voir [la section d'installation](#installation)).
+
+### Commande Docker
+
+Par exemple, la commande Docker pour lancer l'application serait :
+
+`docker run --rm -P --env-file=/chemin/vers/.env real34/lachouettecoop-api:latest`
+
+Regardez ensuite le port de votre machine sur lequel a été mappé le port `4000` du
+conteneur grâce à la commande `docker ps` et accédez à http://0.0.0.0:32768/
+(en remplaçant par le numéro de port correct).
+
+### Fichier Docker Compose
+
+Pour une utilisation en production, voici un exemple de fichier `docker-compose.yml`
+avec une configuration Traæfik.
+
+```yml
+version: "2.1"
+
+services:
+  web:
+    image: real34/lachouettecoop-api:latest
+    restart: unless-stopped
+    env_file: .env
+    networks:
+      default:
+      inverseproxy_shared:
+    labels:
+      traefik.docker.network: "inverseproxy_shared"
+      traefik.enable: "true"
+      traefik.frontend.passHostHeader: "true"
+      traefik.port: "4000"
+      traefik.frontend.rule: "Host:api.acme.org"
+
+networks:
+  default:
+    internal: true
+    driver_opts:
+      encrypted: 1
+  inverseproxy_shared:
+    external: true
+```
