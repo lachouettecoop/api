@@ -4,10 +4,11 @@ const jwtUserToken = require("./jwtUserToken");
 
 const typeDefs = gql`
   type User {
-    lastname: String
-    firstname: String
-    displayName: String
-    barcode: String
+    nom: String
+    prenom: String
+    "Champ à utiliser pour afficher l'identité d'une personne"
+    nomAffichage: String
+    codeBarre: String
     email: String
   }
 

@@ -1,17 +1,17 @@
 const jwt = require("jsonwebtoken");
 
 const createFromData = user => {
-  const firstname = user.description;
-  const lastname = user.sn.toUpperCase();
+  const prenom = user.description;
+  const nom = user.sn.toUpperCase();
 
   return jwt.sign(
     {
       data: {
-        firstname,
-        lastname,
-        displayName: `${firstname} ${lastname}`,
+        prenom,
+        nom,
+        nomAffichage: `${prenom} ${nom}`,
         email: user.mail,
-        barcode: user.homeDirectory
+        codeBarre: user.homeDirectory
       }
     },
     process.env.JWT_SECRET,

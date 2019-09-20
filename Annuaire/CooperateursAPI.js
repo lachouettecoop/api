@@ -18,14 +18,14 @@ const formatMembres = data => {
   return (
     data
       .map(row => ({
-        lastname: row[3].toLocaleUpperCase(),
-        firstname: row[4],
+        nom: row[3].toLocaleUpperCase(),
+        prenom: row[4],
         email: row[5],
-        phone: row[6],
-        subscribedOn: row[7]
+        telephone: row[6],
+        dateSouscription: row[7]
       }))
       // TODO Make localeCompare work on the server
-      .sort((a, b) => a.lastname.localeCompare(b.lastname))
+      .sort((a, b) => a.nom.localeCompare(b.nom))
   );
 };
 

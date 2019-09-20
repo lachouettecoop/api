@@ -3,9 +3,10 @@ const CooperateursAPI = require("./CooperateursAPI");
 
 const typeDefs = gql`
   type Chouettos {
-    lastname: String
-    firstname: String
-    displayName: String
+    nom: String
+    prenom: String
+    "Champ à utiliser pour afficher l'identité d'une personne"
+    nomAffichage: String
   }
 
   extend type Query {
@@ -20,7 +21,7 @@ const resolvers = {
       dataSources.cooperateursAPI.getAll()
   },
   Chouettos: {
-    displayName: ({ lastname, firstname }) => `${firstname} ${lastname}`
+    nomAffichage: ({ nom, prenom }) => `${prenom} ${nom}`
   }
 };
 

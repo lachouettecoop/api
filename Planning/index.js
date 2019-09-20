@@ -50,6 +50,8 @@ const typeDefs = gql`
   type Piaffeur {
     nom: String
     prenom: String
+    "Champ à utiliser pour afficher l'identité d'une personne"
+    nomAffichage: String
     telephone: String
     email: String
   }
@@ -94,7 +96,8 @@ const resolvers = {
 
   Piaffeur: {
     nom: ({ lastName }) => lastName,
-    prenom: ({ firstName }) => firstName
+    prenom: ({ firstName }) => firstName,
+    nomAffichage: ({ lastName, firstName }) => `${firstName} ${lastName}`
   }
 };
 
