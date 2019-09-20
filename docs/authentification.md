@@ -7,7 +7,7 @@ On peut considérer la philosophie de droits appliquées comme suit :
 - les coopérateurs et coopératrices ont accès à des données générales, et des
   actions leur permettant d'évoluer au sein de la Coopérative
 - les membres actifs au sein de groupes, ou ayant un rôle particulier (par
-  exemple effectuant une <abbr title="Participation Indispensable Au Fonctionnement>PIAF</abbr> spécifique) ont accès aux informations leur
+  exemple effectuant une <abbr title="Participation Indispensable Au Fonctionnement">PIAF</abbr> spécifique) ont accès aux informations leur
   permettant d'effectuer leurs tâches
 
 Il est donc important d'accéder à l'API de manière spécifique.
