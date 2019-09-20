@@ -21,7 +21,24 @@ Les données accessibles dépendent des permissions de la personne connectée.
 
 ## Documentation
 
-Pas encore `¯\_(ツ)_/¯`
+L'API déployée est une [API GraphQL](https://graphql.org/). Le but principal de
+celle-ci est d'être utilisée par des applications tierces.
+
+En accédant à celle-ci depuis un navigateur web, une instance du logiciel
+[GraphQL Playground](https://github.com/prisma/graphql-playground) permet
+d'exécuter des requêtes pour « explorer l'API ».
+
+Un onglets « Docs » permet de naviguer dans les requêtes et champs disponibles,
+ainsi que leurs documentations respectives :
+
+![Écran de l'application GraphQL Playground](./graphql-playground.png)
+
+**Attention : la plupart des informations ne sont pas accessibles au public !**
+Il vous faudra donc effectuer vos requêtes en tant qu'un utilisateur ou qu'une
+utilisatrice ayant les droits suffisants (toute personne ayant accès à l'espace
+membres peut se connecter).
+
+Pour en savoir plus sur cela, voir la page [Authentification](./authentification.md).
 
 ## Présentation
 
@@ -62,7 +79,8 @@ entièrement automatisée, si vous osez !
 ## Déploiement
 
 Une image Docker (`real34/lachouettecoop-api`) est construite à chaque nouveau
-changement ou nouvelle version.
+changement ou nouvelle version (via les Actions Github décrites dans le dossier
+`.github/workflows` du dépôt).
 
 La branche `master` est disponible via le tag `latest`, et les tags (versions)
 via leurs tags respectifs.
