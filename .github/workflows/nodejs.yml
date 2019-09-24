@@ -26,6 +26,6 @@ jobs:
       - name: Publish Docker
         uses: elgohr/Publish-Docker-Github-Action@1.12
         with:
-          name: real34/lachouettecoop-api
+          name: lachouettecoop/api
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}

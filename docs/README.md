@@ -78,7 +78,7 @@ entièrement automatisée, si vous osez !
 
 ## Déploiement
 
-Une image Docker (`real34/lachouettecoop-api`) est construite à chaque nouveau
+Une image Docker (`lachouettecoop/api`) est construite à chaque nouveau
 changement ou nouvelle version (via les Actions Github décrites dans le dossier
 `.github/workflows` du dépôt).
 
@@ -93,7 +93,7 @@ contenant les secrets / configurations dans le conteneur (voir [la section d'ins
 
 Par exemple, la commande Docker pour lancer l'application serait :
 
-`docker run --rm -P --env-file=/chemin/vers/.env real34/lachouettecoop-api:latest`
+`docker run --rm -P --env-file=/chemin/vers/.env lachouettecoop/api:latest`
 
 Regardez ensuite le port de votre machine sur lequel a été mappé le port `4000` du
 conteneur grâce à la commande `docker ps` et accédez à http://0.0.0.0:32768/
@@ -109,7 +109,7 @@ version: "2.1"
 
 services:
   web:
-    image: real34/lachouettecoop-api:latest
+    image: lachouettecoop/api:latest
     restart: unless-stopped
     env_file: .env
     networks:
