@@ -10,6 +10,7 @@ const Permissions = require("./Permissions");
 const Annuaire = require("./Annuaire");
 const Authentification = require("./Authentification");
 const Planning = require("./Planning");
+const Participation = require("./Participation");
 
 const App = {
   typeDefs: gql`
@@ -48,13 +49,15 @@ const schema = makeExecutableSchema({
     App.typeDefs,
     Annuaire.typeDefs,
     Authentification.typeDefs,
-    Planning.typeDefs
+    Planning.typeDefs,
+    Participation.typeDefs
   ],
   resolvers: merge(
     App.resolvers,
     Annuaire.resolvers,
     Authentification.resolvers,
-    Planning.resolvers
+    Planning.resolvers,
+    Participation.resolvers
   )
 });
 
@@ -68,7 +71,12 @@ const server = new ApolloServer({
       user
     };
   },
-  dataSources: () => merge(Annuaire.dataSources(), Planning.dataSources())
+  dataSources: () =>
+    merge(
+      Annuaire.dataSources(),
+      Planning.dataSources(),
+      Participation.dataSources()
+    )
 });
 
 server
