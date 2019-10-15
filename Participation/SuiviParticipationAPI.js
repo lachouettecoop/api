@@ -1,6 +1,7 @@
 const GoogleSpreadsheet = require("google-spreadsheet");
 const mem = require("mem");
 const parse = require("date-fns/parse");
+const differenceInCalendarWeeks = require("date-fns/differenceInCalendarWeeks");
 
 const fetchAllRows = (doc, credentials, sheetTitle, transformResult) =>
   new Promise((resolve, reject) => {
@@ -34,11 +35,17 @@ const dateOuVide = value => {
 };
 
 const formatParticipation = row => {
+  const dateDernierePIAF = dateOuVide(row.derniertafeffectué);
   return {
     id: row.id,
     email: row.mail.trim(),
 
-    dateDernierePIAF: dateOuVide(row.derniertafeffectué),
+    nombreSemainesDepuisDernierePIAF: differenceInCalendarWeeks(
+      new Date(),
+      dateDernierePIAF,
+      { weekStartsOn: 1 }
+    ),
+    dateDernierePIAF: dateDernierePIAF,
     dateProchainePIAF: dateOuVide(row.prochaintaf),
 
     nombrePIAFOk: row.nbtafok === "OK",
@@ -77,6 +84,15 @@ class SuiviParticipationAPI {
   async getAllNonOk() {
     const all = await this.getAll();
     return all.filter(one => !one.nombrePIAFOk);
+  }
+
+  async getAllBySemaineDepuisDernierePIAF() {
+    const all = await this.getAll();
+    return all.reduce((acc, one) => {
+      const key = one.nombreSemainesDepuisDernierePIAF;
+      acc.set(key, acc.has(key) ? acc.get(key) + 1 : 1);
+      return acc;
+    }, new Map());
   }
 }
 

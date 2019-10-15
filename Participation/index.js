@@ -22,6 +22,12 @@ const typeDefs = gql`
   type StatsParticipation {
     nombreAJourDePIAF: Int
     nombreNonAJourDePIAF: Int
+    parSemainesDepuisDernierePIAF: [StatSemaineDepuisDernierePIAF]
+  }
+
+  type StatSemaineDepuisDernierePIAF {
+    nombreDeSemainesDepuisLaDernierePIAF: Int
+    nombreDePersonnes: Int
   }
 `;
 
@@ -30,10 +36,24 @@ const resolvers = {
     statsParticipation: async (_, __, { dataSources }) => {
       const aJour = await dataSources.SuiviParticipationAPI.getAllOk();
       const nonAJour = await dataSources.SuiviParticipationAPI.getAllNonOk();
+      const parSemaine = await dataSources.SuiviParticipationAPI.getAllBySemaineDepuisDernierePIAF();
 
       return {
         nombreAJourDePIAF: aJour.length,
-        nombreNonAJourDePIAF: nonAJour.length
+        nombreNonAJourDePIAF: nonAJour.length,
+        parSemainesDepuisDernierePIAF: [...parSemaine.entries()]
+          .map(([nombreDeSemainesDepuisLaDernierePIAF, nombreDePersonnes]) => ({
+            nombreDeSemainesDepuisLaDernierePIAF,
+            nombreDePersonnes
+          }))
+          .sort((a, b) => {
+            if (isNaN(a.nombreDeSemainesDepuisLaDernierePIAF)) return 1;
+            if (isNaN(b.nombreDeSemainesDepuisLaDernierePIAF)) return -1;
+            return (
+              a.nombreDeSemainesDepuisLaDernierePIAF -
+              b.nombreDeSemainesDepuisLaDernierePIAF
+            );
+          })
       };
     }
   },
