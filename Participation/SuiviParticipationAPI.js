@@ -48,7 +48,7 @@ const formatParticipation = row => {
     dateDernierePIAF: dateDernierePIAF,
     dateProchainePIAF: dateOuVide(row.prochaintaf),
 
-    nombrePIAFOk: row.nbtafok === "OK",
+    nombrePIAFOk: row.nbpiaf === "OK",
     nombrePIAFDepuis2018: Number(row.nbtafeffectuésdepuisle2018),
     nombrePIAFAttendus: Number(row.nbtafattendus)
   };
