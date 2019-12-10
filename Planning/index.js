@@ -16,6 +16,8 @@ const typeDefs = gql`
   extend type Query {
     "Le planning du Lab sur une période donnée"
     planning(debut: Date, fin: Date): [Jour]
+    "Le planning du Lab pour une journée donnée"
+    planningDuJour(date: Date!): Jour
   }
 
   interface Jour {
@@ -42,9 +44,14 @@ const typeDefs = gql`
   type Poste {
     nom: String!
     date: Date!
-    horaires: String! # TODO type plus riche
+    horaires: Horaires
     piaffeur: Piaffeur
     notes: String
+  }
+
+  type Horaires {
+    debut: DateTime!
+    fin: DateTime!
   }
 
   type Piaffeur {
@@ -67,7 +74,9 @@ const resolvers = {
       _,
       { debut = startOfMonth(new Date()), fin = endOfMonth(new Date()) },
       { dataSources }
-    ) => dataSources.planningAPI.getPeriode(debut, fin)
+    ) => dataSources.planningAPI.getPeriode(debut, fin),
+    planningDuJour: async (_, { date }, { dataSources }) =>
+      dataSources.planningAPI.getJour(date)
   },
 
   Jour: {
@@ -90,14 +99,14 @@ const resolvers = {
 
   Poste: {
     nom: ({ label }) => label,
-    horaires: ({ hours }) => hours,
     piaffeur: ({ person }) => person
   },
 
   Piaffeur: {
     nom: ({ lastName }) => lastName,
     prenom: ({ firstName }) => firstName,
-    nomAffichage: ({ lastName, firstName }) => `${firstName} ${lastName}`
+    nomAffichage: ({ lastName, firstName }) =>
+      firstName ? `${firstName} ${lastName}` : null
   }
 };
 

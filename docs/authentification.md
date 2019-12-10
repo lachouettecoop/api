@@ -90,7 +90,10 @@ query all {
         nom
         postes {
           nom
-          horaires
+          horaires {
+            debut
+            fin
+          }
           piaffeur {
             nom
             prenom

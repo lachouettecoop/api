@@ -59,13 +59,26 @@ const TaskNameRow = data => {
   };
 };
 const SlotRow = data => {
-  const dateFromFrenchFormat = source => {
-    return parse(source, "dd/MM/yyyy", new Date());
+  const datetimeFromFrenchFormat = source => {
+    return parse(
+      source.endsWith("h") ? source + "00" : source,
+      "dd/MM/yyyy H'h'mm",
+      new Date()
+    );
   };
+
+  const hours = data[2].split("-");
+  const heureDebut = datetimeFromFrenchFormat(`${data[1]} ${hours[0]}`);
+  const heureFin = datetimeFromFrenchFormat(`${data[1]} ${hours[1]}`);
+
   const slot = {
     label: data[0],
-    date: dateFromFrenchFormat(data[1]),
-    hours: data[2],
+    date: heureDebut,
+    hours: hours.join("-"),
+    horaires: {
+      debut: heureDebut,
+      fin: heureFin
+    },
     person: data[3] && {
       firstName: data[4],
       lastName: data[3],
