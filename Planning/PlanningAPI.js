@@ -1,11 +1,13 @@
 const mem = require("mem");
 const got = require("got");
 const csv = require("neat-csv");
+const isFuture = require("date-fns/isFuture");
 const isSameDay = require("date-fns/isSameDay");
 const isWithinInterval = require("date-fns/isWithinInterval");
 const eachDayOfInterval = require("date-fns/eachDayOfInterval");
 const addMinutes = require("date-fns/addMinutes");
 const subMinutes = require("date-fns/subMinutes");
+const flattenDeep = require("lodash/flattenDeep");
 const toPlanning = require("./toPlanning");
 
 const UNE_MINUTE = 60 * 1000;
@@ -68,6 +70,18 @@ class PlanningAPI {
     const jour = planning.find(jour => isSameDay(date, jour.getDate()));
 
     return jour || { getDate: () => date, isOpened: () => false };
+  }
+
+  async getAllPostesAPourvoir() {
+    const planning = await this.getAll();
+
+    const postes = flattenDeep(
+      planning
+        .filter(jour => isFuture(jour.getDate()) && jour.isOpened)
+        .map(jourOuverture => jourOuverture.tasks.map(({ slots }) => slots))
+    );
+
+    return postes.filter(poste => !poste.person.lastName);
   }
 }
 

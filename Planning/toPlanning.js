@@ -31,7 +31,7 @@ const Task = (label, slots = []) => {
   return {
     label,
     slots,
-    addSlot: slot => Task(label, [...slots, slot]),
+    addSlot: slot => Task(label, [...slots, { ...slot, nomDuCreneau: label }]),
     isStaffed: () => slots.length > 0,
     getDate: () => mostFrequentValueIn(slots.map(slot => slot.date))
   };

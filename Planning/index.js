@@ -18,6 +18,8 @@ const typeDefs = gql`
     planning(debut: Date, fin: Date): [Jour]
     "Le planning du Lab pour une journée donnée"
     planningDuJour(date: Date!): Jour
+    "Les postes à pourvoir sur des créneaux du planning"
+    postesAPourvoir: [Poste]
   }
 
   interface Jour {
@@ -43,6 +45,7 @@ const typeDefs = gql`
 
   type Poste {
     nom: String!
+    nomDuCreneau: String!
     date: Date!
     horaires: Horaires
     piaffeur: Piaffeur
@@ -76,7 +79,9 @@ const resolvers = {
       { dataSources }
     ) => dataSources.planningAPI.getPeriode(debut, fin),
     planningDuJour: async (_, { date }, { dataSources }) =>
-      dataSources.planningAPI.getJour(date)
+      dataSources.planningAPI.getJour(date),
+    postesAPourvoir: async (_, __, { dataSources }) =>
+      dataSources.planningAPI.getAllPostesAPourvoir()
   },
 
   Jour: {
