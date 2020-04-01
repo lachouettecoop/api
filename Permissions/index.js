@@ -12,10 +12,14 @@ const permissions = {
   },
   Mutation: {
     ping: allow,
-    loginChouettos: not(isAuthenticated)
+    loginChouettos: not(isAuthenticated),
+    passerCommande: allow
   },
   LoginChouettosPayload: {
     "*": not(isAuthenticated)
+  },
+  PasserCommandePayload: {
+    "*": allow
   }
 };
 

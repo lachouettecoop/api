@@ -9,6 +9,7 @@ const Permissions = require("./Permissions");
 
 const Annuaire = require("./Annuaire");
 const Authentification = require("./Authentification");
+const Drive = require("./Drive");
 const Planning = require("./Planning");
 
 const App = {
@@ -48,12 +49,14 @@ const schema = makeExecutableSchema({
     App.typeDefs,
     Annuaire.typeDefs,
     Authentification.typeDefs,
+    Drive.typeDefs,
     Planning.typeDefs
   ],
   resolvers: merge(
     App.resolvers,
     Annuaire.resolvers,
     Authentification.resolvers,
+    Drive.resolvers,
     Planning.resolvers
   )
 });
@@ -68,7 +71,8 @@ const server = new ApolloServer({
       user
     };
   },
-  dataSources: () => merge(Annuaire.dataSources(), Planning.dataSources())
+  dataSources: () =>
+    merge(Annuaire.dataSources(), Drive.dataSources(), Planning.dataSources())
 });
 
 server

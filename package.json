@@ -6,8 +6,8 @@
   "scripts": {
     "commit": "git-cz",
     "release": "release-it",
-    "dev": "nodemon index.js",
-    "start": "node index.js",
+    "dev": "NODE_ENV=dev nodemon index.js",
+    "start": "NODE_ENV=production node index.js",
     "test": "jest"
   },
   "keywords": [],
@@ -15,6 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "apollo-server": "^2.7.0",
+    "common-tags": "^1.8.0",
     "date-fns": "^2.1.0",
     "dotenv": "^8.0.0",
     "got": "^9.6.0",
@@ -28,6 +29,7 @@
     "lodash": "^4.17.14",
     "mem": "^5.1.1",
     "neat-csv": "^5.1.0",
+    "nodemailer": "^6.4.6",
     "nodemon": "^1.19.1"
   },
   "release-it": {
