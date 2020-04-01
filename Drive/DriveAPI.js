@@ -36,6 +36,7 @@ class DriveAPI {
     const message = {
       from: `Commande Drive <${this.driveEmail}>`,
       to: `Drive <${this.driveEmail}>`,
+      cc: data.email,
       subject: `Commande de ${data.nom}`,
       text: stripIndents`
         Bonjour,
