@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/lachouettecoop/api/compare/1.1.0...1.2.0) (2020-04-01)
+
+
+### Features
+
+* **drive:** ajout du Chouettos en CC des emails de commande ([1cac9e2](https://github.com/lachouettecoop/api/commit/1cac9e2))
+
 # [1.1.0](https://github.com/lachouettecoop/api/compare/1.0.0...1.1.0) (2020-04-01)
 
 
