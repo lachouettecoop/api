@@ -1,3 +1,12 @@
+# [1.1.0](https://github.com/lachouettecoop/api/compare/1.0.0...1.1.0) (2020-04-01)
+
+
+### Features
+
+* **drive:** ajout de la possibilité de passer commande ([40856ed](https://github.com/lachouettecoop/api/commit/40856ed))
+* **planning:** dates et horaires plus précises, et récupération d'une seule journée ([b8dc78f](https://github.com/lachouettecoop/api/commit/b8dc78f))
+* **Planning:** ajout de la liste des postes à pourvoir ([e356eaf](https://github.com/lachouettecoop/api/commit/e356eaf))
+
 # 1.0.0 (2019-09-20)
 
 
