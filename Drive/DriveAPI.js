@@ -45,7 +45,7 @@ class DriveAPI {
           data.codeCommande
         }&nom=${encodeURIComponent(data.nom)}&telephone=${encodeURIComponent(
         data.telephone
-      )}
+      )}&ts=${Date.now()}
 
         Elle a été passée par ${data.nom} (${data.email}).
         Son numéro de téléphone est le : ${data.telephone}.
