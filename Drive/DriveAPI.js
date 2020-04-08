@@ -12,12 +12,12 @@ const makeDevTransport = async () => {
     secure: false, // true for 465, false for other ports
     auth: {
       user: testAccount.user, // generated ethereal user
-      pass: testAccount.pass // generated ethereal password
-    }
+      pass: testAccount.pass, // generated ethereal password
+    },
   });
 };
 
-const makeSMTPTransport = async dsn => {
+const makeSMTPTransport = async (dsn) => {
   return await nodemailer.createTransport(dsn);
 };
 
@@ -51,7 +51,7 @@ class DriveAPI {
         Son numéro de téléphone est le : ${data.telephone}.
 
         ${data.notes ? "Notes additionnelles : " + data.notes : ""}
-      `
+      `,
     };
 
     console.log(message);
@@ -61,7 +61,7 @@ class DriveAPI {
     }
 
     return {
-      success: true
+      success: true,
     };
   }
 }
