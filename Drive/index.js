@@ -11,6 +11,7 @@ const typeDefs = gql`
     nom: String!
     email: String!
     telephone: String!
+    total: Float!
     codeCommande: String!
     notes: String
   }
@@ -23,8 +24,8 @@ const typeDefs = gql`
 const resolvers = {
   Mutation: {
     passerCommande: (_, { input }, { dataSources }) =>
-      dataSources.DriveAPI.passerCommande(input)
-  }
+      dataSources.DriveAPI.passerCommande(input),
+  },
 };
 
 module.exports = {
@@ -34,8 +35,9 @@ module.exports = {
     return {
       DriveAPI: new DriveAPI(
         process.env.DRIVE_EMAIL,
-        process.env.DRIVE_SMTP_DSN
-      )
+        process.env.DRIVE_SMTP_DSN,
+        process.env.DRIVE_ADMIN_URL
+      ),
     };
-  }
+  },
 };
