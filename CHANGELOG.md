@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/lachouettecoop/api/compare/1.3.0...1.4.0) (2020-05-20)
+
+
+### Features
+
+* ajout de l'envoi des commandes à la base de données admin ([dda4bbb](https://github.com/lachouettecoop/api/commit/dda4bbb))
+
 # [1.3.0](https://github.com/lachouettecoop/api/compare/1.2.0...1.3.0) (2020-04-08)
 
 
