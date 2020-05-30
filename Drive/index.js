@@ -33,11 +33,7 @@ module.exports = {
   resolvers,
   dataSources: () => {
     return {
-      DriveAPI: new DriveAPI(
-        process.env.DRIVE_EMAIL,
-        process.env.DRIVE_SMTP_DSN,
-        process.env.DRIVE_ADMIN_URL
-      ),
+      DriveAPI: new DriveAPI(process.env.DRIVE_ADMIN_URL),
     };
   },
 };
