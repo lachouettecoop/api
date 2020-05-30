@@ -1,6 +1,6 @@
 {
   "name": "lachouettecoop-api",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "API unifiée des données de La Chouette Coop",
   "main": "index.js",
   "scripts": {

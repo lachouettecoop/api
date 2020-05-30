@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/lachouettecoop/api/compare/1.4.0...1.5.0) (2020-05-30)
+
+
+### Features
+
+* **drive:** désactivation des envois d'email au Drivex ([0421087](https://github.com/lachouettecoop/api/commit/0421087))
+
 # [1.4.0](https://github.com/lachouettecoop/api/compare/1.3.0...1.4.0) (2020-05-20)
 
 
