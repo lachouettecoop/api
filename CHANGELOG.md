@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/lachouettecoop/api/compare/1.5.0...1.6.0) (2020-06-03)
+
+
+### Features
+
+* **drive:** envoi de l'email de confirmation au Chouettos uniquement ([b022dee](https://github.com/lachouettecoop/api/commit/b022dee))
+
 # [1.5.0](https://github.com/lachouettecoop/api/compare/1.4.0...1.5.0) (2020-05-30)
 
 
