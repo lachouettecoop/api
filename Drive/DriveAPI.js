@@ -33,36 +33,39 @@ class DriveAPI {
   }
 
   async passerCommande(data) {
-    const transport = await this.emailTransport;
+    const commande = await this.sendToAdmin(data);
+    if (!commande || !commande.id) {
+      return {
+        success: false,
+      };
+    }
 
+    const transport = await this.emailTransport;
     const message = {
       from: `Commande Drive <${this.driveEmail}>`,
-      to: `Drive <${this.driveEmail}>`,
-      cc: data.email,
-      subject: `Commande de ${data.nom}`,
+      to: data.email,
+      subject: `Confirmation de votre commande #${commande.id} sur le Drive La Chouette Coop`,
       text: stripIndents`
         Bonjour,
 
-        Une nouvelle commande est disponible sur https://drive.lachouettecoop.fr/preparation.html?${
-          data.codeCommande
-        }&nom=${encodeURIComponent(data.nom)}&telephone=${encodeURIComponent(
-        data.telephone
-      )}&ts=${Date.now()}
+        Votre commande d'un total de ${data.total.toFixed(
+          2
+        )}€ sur le Drive de La Chouette Coop a été validée. Elle porte le joli numéro « ${
+        commande.id
+      } ».
 
-        Elle a été passée par ${data.nom} (${data.email}).
-        Son numéro de téléphone est le : ${data.telephone}.
+        Elle sera traitée prochainement, et vous serez informé·e dès que sa préparation sera terminée (au numéro ${
+          data.telephone
+        }).
 
-        ${data.notes ? "Notes additionnelles : " + data.notes : ""}
+        Bonne journée !
       `,
     };
 
-    console.log(message);
     const info = await transport.sendMail(message);
     if (process.env.NODE_ENV !== "production") {
       console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
     }
-
-    this.sendToAdmin(data);
 
     return {
       success: true,
@@ -93,12 +96,13 @@ class DriveAPI {
 
     console.log("sending order to admin", payload);
     try {
-      await got.post(`${this.driveAdminUrl}/commandes`, {
+      const commande = await got.post(`${this.driveAdminUrl}/commandes`, {
         json: true,
         body: payload,
       });
 
       console.log("OK RESPONSE");
+      return commande.body;
     } catch (e) {
       console.log("OOPS", JSON.stringify(e.body, null, 2));
     }
