@@ -24,7 +24,7 @@ jobs:
         env:
           CI: true
       - name: Publish Docker
-        uses: elgohr/Publish-Docker-Github-Action@1.12
+        uses: elgohr/Publish-Docker-Github-Action@v5
         with:
           name: lachouettecoop/api
           username: ${{ secrets.DOCKER_USERNAME }}
